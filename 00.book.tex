@@ -49,9 +49,9 @@
 \sloppy % biar section ga melebar melewati kertas
 
 \begin{center}
-{\large RANCANGAN SISTEM BASIS DATA - WS PBB}
+{\large IMPLEMENTASI RANCANGAN SISTEM BASIS DATA - WS PBB}
 \\[1cm]
-XX Februari 2017\\
+XX April 2017\\
 Priyanto Tamami, S.Kom.
 \end{center}
 
@@ -60,129 +60,65 @@ Priyanto Tamami, S.Kom.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{PENDAHULUAN}
+\section{TAHAPAN IMPLEMENTASI}
 
-Aplikasi \textit{Web Services} ini bertujuan untuk melakukan pencatatan pembayaran pada basis data SISMIOP yang dilakukan oleh Bank sebagai tempat pembayaran.
+Tahapan implementasi dari sistem basis data untuk aplikasi \textit{Web Service} PBB adalah sebagai berikut :
 
-Aplikasi ini sesungguhnya tidak menggunakan basis data baru, melainkan menggunakan basis data yang sudah ada, yaitu basis data yang digunakan pada SISMIOP, dimana tabel yang terpengaruh atas pencatatan pembayaran ada dua, yaitu tabel SPPT, dan tabel PEMBAYARAN\_SPPT.
+\begin{enumerate}[1.]
+  \item Telaah Ulang Rancangan Sistem Basis Data
+  \item Penjadwalan Tugas Pengembangan Sistem Basis Data
+  \item \textit{Coding} Program
+  \item Pengujian Sistem Basis Data
+\end{enumerate}
 
-Agar setiap transaksi yang terjadi dapat dievaluasi penggunaannya, maka diperlukan tabel tambahan yang mencatat \textit{log} transaksi, baik pencatatan pembayaran, atau pembatalan pencatatan pembayaran (\textit{reversal}).
+Tahapan secara rinci akan dijelaskan sebagai berikut.
 
+\subsection{Telaah Ulang Rancangan}
 
-\section{STRUKTUR BASIS DATA}
-
-Struktur basis data dapat digambarkan sebagai berikut :
-
-\subsection{Struktur Tabel SPPT}
-
-Tabel ini sebetulnya sudah terbentuk dan dimanfaatkan oleh aplikasi SISMIOP untuk menampung data tagihan Pajak Bumi dan Bangunan Perdesaan dan Perkotaan yang dihasilkan setiap tahun. Tabel ini akan digunakan dalam aplikasi \textit{Web Service} PBB sebagai data dasar penentuan jumlah pembayaran yang akan dikirimkan atas permintaan \textit{inquiry} dari Bank sebagai tempat pembayaran.
-
-Strukturnya adalah seperti pada gambar \ref{fig:tabel-sppt} :
-
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=0.4\textwidth]{./resources/01-struktur-tabel-sppt}
-  \caption{Struktur Tabel SPPT}
-  \label{fig:tabel-sppt}
-\end{figure}
-
-\subsection{Struktur Tabel PEMBAYARAN\_SPPT}
-
-Tabel ini pun sudah terbentuk dan dimanfaatkan oleh aplikasi SISMIOP untuk mencatat transaksi pembayaran secara manual oleh operator. Tabel ini digunakan pula pada aplikasi \textit{Web Service} PBB untuk mencatat pembayaran yang terjadi.
-
-Struktur dari tabel PEMBAYARAN\_SPPT ini adalah seperti pada gambar \ref{fig:tabel-pembayaran-sppt} :
-
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=0.4\textwidth]{./resources/02-struktur-tabel-pembayaran-sppt}
-  \caption{Struktur Tabel PEMBAYARAN\_SPPT}
-  \label{fig:tabel-pembayaran-sppt}
-\end{figure}
-
-\subsection{Struktur Tabel DAT\_OP\_BUMI}
-
-Tabel ini sudah terbentuk dan dimanfaatkan oleh aplikasi SISMIOP untuk menampung data bumi dan objek pajak bumi dan bangunan. Tabel ini akan terisi pada saat operator memasukkan data-data pada lembar Surat Pemberitahuan Objek Pajak (SPOP). 
-
-Struktur dari tabel DAT\_OP\_BUMI ini seperti pada gambar \ref{fig:tabel-dat-op-bumi} : 
+Penelaahan ulang dilakukan melalui alur data yang terjadi pada saat aplikasi digunakan nantinya. Kebutuhan akan sistem basis data dapat ditelaah berdasarkan diagram \textit{use-case} seperti pada gambar \ref{fig:use-case} :
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.4\textwidth]{./resources/03-struktur-tabel-dat-op-bumi}
-	\caption{Struktur Tabel DAT\_OP\_BUMI}
-	\label{fig:tabel-dat-op-bumi}
+	\includegraphics[width=0.5\textwidth]{./resources/001-uml-use-case}
+	\caption{Diagram \textit{Use-Case}}
+	\label{fig:use-case}
 \end{figure}
 
-\subsection{Struktur Tabel REF\_KELURAHAN}
+Pada diagram tersebut, aplikasi nantinya akan melayani 3 (tiga) hal, yaitu \textit{inquiry}, pencatatan pembayaran, dan \textit{reversal} pembayaran. Kebutuhan rinci untuk tiap aktivitas tersebut adalah sebagai berikut :
 
-Tabel ini sudah terbentuk dan dimanfaatkan oleh aplikasi SISMIOP untuk menampung data administrasi Desa/Kelurahan seperti nama Desa/Kelurahan, kode pos, dan sebagainya. Tabel ini digunakan pada aplikasi \textit{Web Service} PBB untuk melakukan \textit{inquiry} terhadap nama Desa/Kelurahan.
+\begin{enumerate}[1.]
+	\item \textit{Inquiry} Data
+	
+	Pada aktivitas \textit{inquiry} data, tabel yang dibutuhkan adalah tabel SPPT sebagai tabel utama yang memuat informasi nama wajib pajak, tahun pajak, dan besarnya PBB-P2 terhutang. Tabel lain yang diperlukan adalah tabel REF\_KECAMATAN dan REF\_KELURAHAN yang menyimpan informasi nama Kecamatan dan nama Desa/Kelurahan. 
+	
+	\item Pencatatan Pembayaran
+	
+	
+	
+	\item \textit{Reversal} Pembayaran
+\end{enumerate}
 
-Struktur dari tabel REF\_KELURAHAN ini adalah seperti pada gambar \ref{fig:tabel-ref-kelurahan} :
+\subsection{Penjadwalan tugas pengembangan}
 
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=0.4\textwidth]{./resources/04-struktur-tabel-ref-kelurahan}
-  \caption{Struktur Tabel REF\_KELURAHAN}
-  \label{fig:tabel-ref-kelurahan}
-\end{figure}
+\subsection{Coding Program (Pembuatan database, tabel, relasi tabel, indeks, dan trigger)}
 
-\subsection{Struktur Tabel REF\_KECAMATAN}
+\subsection{menguji database}
 
-Tabel ini sudah terbentuk dan dimanfaatkan oleh aplikasi SISMIOP untuk menampung data administrasi Kecamatan. Tabel ini digunakan pada aplikasi \textit{Web Service} PBB untuk memberikan informasi nama Kecamatan pada proses \textit{inquiry} dan pencatatan pembayaran PBB-P2.
-
-Struktur dari tabel REF\_KECAMATAN ini adalah seperti pada gambar \ref{fig:tabel-ref-kecamatan} :
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=0.4\textwidth]{./resources/05-struktur-tabel-ref-kecamatan}
-	\caption{Struktur Tabel REF\_KECAMATAN}
-	\label{fig:tabel-ref-kecamatan}
-\end{figure}
-
-\subsection{Struktur Tabel LOG\_TRX\_PEMBAYARAN}
-
-Tabel ini adalah tabel baru yang digunakan untuk menyimpan catatan terhadap proses transaksi pembayaran melalui aplikasi \textit{Web Service} PBB.
-
-Struktur dari tabel LOG\_TRX\_PEMBAYARAN ini adalah seperti pada gambar \ref{fig:tabel-log-trx-pembayaran} :
-
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=0.4\textwidth]{./resources/06-struktur-tabel-log-trx-pembayaran}
-  \caption{Struktur Tabel LOG\_TRX\_PEMBAYARAN}
-  \label{fig:tabel-log-trx-pembayaran}
-\end{figure}
-
-Yang menjadi \textit{field} atau data penting pada tabel ini adalah NOP, Tahun Pajak (THN), dan Nomor Transaksi Pajak Daerah (NTPD). \textit{Field} inilah yang nantinya menjadi kunci dari setiap transaksi yang terjadi pada sistem aplikasi \textit{Web Service} PBB.
+\subsection{pelatihan pengguna - ops}
 
 
-\subsection{Struktur Tabel LOG\_REVERSAL}
+\section{RANCANGAN}
 
-Tabel ini digunakan sebagai tempat untuk menyimpan catatan tarhadap proses \textit{reversal} atau koreksi data pembayaran yang telah terjadi sebelumnya.
+% terlampir dari kegiatan III.D.1
 
-Struktur dari tabel LOG\_REVERSAL ini adalah seperti pada gambar \ref{fig:tabel-log-reversal} :
+\section{LOKASI}
 
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=0.4\textwidth]{./resources/07-struktur-tabel-log-reversal}
-	\caption{Struktur Tabel LOG\_REVERSAL}
-	\label{fig:tabel-log-reversal}
-\end{figure}
+\section{SKEMA DAN KAMUS}
 
+\section{BESARAN}
 
-\section{DIAGRAM RELASI \textit{ENTITY}}
+\section{JENIS DBMS}
 
-Diagram relasi yang menggambarkan hubungan antar tabel pada sistem aplikasi \textit{Web Service} PBB adalah seperti pada gambar \ref{fig:relasi-entity} :
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=0.8\textwidth]{./resources/08-relasi-entity}
-	\caption{Diagram Relasi}
-	\label{fig:relasi-entity}
-\end{figure}
-
-Yang dapat dijabarkan sebagai berikut, tabel SPPT akan bergantung dengan data yang berada pada tabel DAT\_OP\_BUMI, dimana satu data pada tabel DAT\_OP\_BUMI akan ada banyak data di tabel SPPT, karena setiap Nomor Objek Pajak pada tabel DAT\_OP\_BUMI akan ditetapkan pada tabel SPPT setiap tahun pajak.
-
-Tabel SPPT pun akan bergantung dengan data pada tabel REF\_KECAMATAN dan REF\_KELURAHAN, dimana satu Kecamatan dan satu Desa/Kelurahan akan memiliki banyak objek di tabel SPPT. 
-
-
+\section{JENIS APLIKASI YANG MENGGUNAKAN DB}
 
 \end{document}
