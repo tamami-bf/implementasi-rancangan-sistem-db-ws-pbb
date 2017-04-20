@@ -93,14 +93,44 @@ Pada diagram tersebut, aplikasi nantinya akan melayani 3 (tiga) hal, yaitu \text
 	
 	\item Pencatatan Pembayaran
 	
+	Pada aktivitas pencatatan pembayaran SPPT PBB-P2, tabel yang dibutuhkan atau digunakan adalah sebagai berikut :
 	
+	\begin{itemize}
+		\item Tabel SPPT sebagai tabel yang menyimpan informasi utama dari tagihan tahun pajak tertentu, nantinya \textit{field} STATUS\_PEMBAYARAN\_SPPT pada tabel ini akan diubah menjadi 1 (satu) apabila proses pencatatan pembayaran berhasil.
+		\item Tabel PEMBAYARAN\_SPPT digunakan sebagai tempat untuk mencatatkan transaksi pembayaran sesuai aplikasi SISMIOP. 
+		\item Tabel DAT\_OP\_BUMI digunakan untuk mengambil informasi kode zona nilai tanah dan nilai sistem bumi (tanah) sebagai bahan penyusunan kode Nomor Transaksi Pajak Daerah (NTPD).
+		\item Tabel REF\_KECAMATAN dan REF\_KELURAHAN yang digunakan untuk menampilkan informasi nama Kecamatan dan nama Desa/Kelurahan sebagai bahan informasi pencetakan Surat Setoran Pajak Daerah oleh pihak Bank / Tempat Pembayaran.
+		\item Tabel LOG\_TRX\_PEMBAYARAN yang digunakan sebagai tempat penyimpanan aktivitas pencatatan transaksi yang telah terjadi.
+	\end{itemize} 
 	
 	\item \textit{Reversal} Pembayaran
+	
+	Pada aktivitas \textit{reversal} pembayaran SPPT PBB-P2, dimaksudkan apabila ada kesalahan pencatatan pembayaran yang telah terjadi sebelumnya, tagihannya dapat dikembalikan ke status terhutang kembali. Adapun tabel yang digunakan untuk aktivitas ini adalah sebagai berikut :
+	
+	\begin{itemize}
+		\item Tabel SPPT, tabel ini digunakan agar aplikasi dapat mengubah / memperbarui \textit{field} STATUS\_PEMBAYARAN\_SPPT menjadi 0 (nol) yang artinya Nomor Objek Pajak (NOP) untuk tahun pajak tercantum belum dibayarkan dan dalam status terhutang.
+		\item Tabel PEMBAYARAN\_SPPT, tabel ini digunakan agar aplikasi dapat menghapus data terakhir saat terjadinya pembayaran.
+		\item Tabel LOG\_TRX\_PEMBAYARAN, tabel ini digunakan oleh aplikasi untuk melakukan pencocokan data Nomor Transaksi Pajak Daerah (NTPD) yang menunjukkan bahwa transaksi yang akan dilakukan \textit{reversal} adalah transaksi yang pernah dilakukan pencatatan pembayaran sebelumnya.
+		\item Tabel LOG\_REVERSAL, tabel ini digunakan oleh aplikasi untuk menyimpan catatan aktivitas \textit{reversal} yang telah terjadi.
+	\end{itemize}
 \end{enumerate}
 
 \subsection{Penjadwalan tugas pengembangan}
 
+Jadwal tugas pengembangan untuk membangun sistem basis data pada aplikasi \textit{Web Service} dilakukan oleh 1 (satu) orang fungsional Pranata Komputer dan dapat diselesaikan dalam 1 hari saja karena struktur tabel pada basis data sebagian menggunakan sistem yang sudah ada (dari SISMIOP), sehingga hanya diperlukan tabel LOG\_REVERSAL dan tabel LOG\_TRX\_PEMBAYARAN saja. Adapun \textit{store procedures} yang dibangun juga cukup sederhana.
+
 \subsection{Coding Program (Pembuatan database, tabel, relasi tabel, indeks, dan trigger)}
+
+Bagian \textit{coding} program akan terdiri dari beberapa hal, yaitu :
+
+\begin{enumerate}[1.]
+	\item Pembuatan Database
+	\item Pembuatan Tabel
+	\item Pembuatan Relasi Tabel
+	\item Pembuatan Indeks
+	\item Pembuatan \textit{Trigger}
+	\item Pembuatan \textit{Store Procedure}
+\end{enumerate}
 
 \subsection{menguji database}
 
