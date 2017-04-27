@@ -337,11 +337,51 @@ CREATE TABLE "PBB"."LOG_REVERSAL"
 	
 	Beberapa kunci tamu yang ada pada tabel ini adalah sebagai berikut :
 	
-	\begin{itemize}
-	\item SYS\_C0014278
-	\end{itemize}
+		\begin{itemize}
+			\item \textit{Constraint} SYS\_C0014278 adalah kunci tamu untuk tabel DAT\_OP\_BUMI, karena tabel sudah terbentuk dari awal, sehingga kunci tamunya pun sudah terbentuk dengan kode sebagai berikut :
+	
+\begin{lstlisting}
+FOREIGN KEY (KD_PROPINSI, KD_DATI2, KD_KECAMATAN, KD_KELURAHAN, KD_BLOK, NO_URUT, KD_JNS_OP)
+  REFERENCES DAT_OP_BUMI (KD_PROPINSI, KD_DATI2, KD_KECAMATAN, KD_KELURAHAN, KD_BLOK, 
+    NO_URUT, KD_JNS_OP)
+\end{lstlisting}
+
+			\item \textit{Constraint} SYS\_C0014279 adalah kunci tamu untuk tabel REF\_KECAMATAN, kode kunci tamu ini sudah terbentuk pada saat pembuatan tabel dengan kode sebagai berikut :
+	
+\begin{lstlisting}
+FOREIGN KEY (KD_PROPINSI, KD_DATI2, KD_KECAMATAN) 
+  REFERENCES REF_KECAMATAN (KD_PROPINSI, KD_DATI2, KD_KECAMATAN)
+\end{lstlisting}
+	
+			\item \textit{Constraint} SYS\_C0014280 adalah kunci tamu untuk tabel REF\_KELURAHAN, kode kunci tamu ini sudah terbentuk pada saat pembuatan tabel dengan kode sebagai berikut :
+	
+\begin{lstlisting}
+FOREIGN KEY (KD_PROPINSI, KD_DATI2, KD_KECAMATAN, KD_KELURAHAN)
+  REFERENCES REF_KELURAHAN (KD_PROPINSI, KD_DATI2, KD_KECAMATAN, KD_KELURAHAN)
+\end{lstlisting}
+		\end{itemize}
 	
 	\item Tabel DAT\_OP\_BUMI
+	
+	Pada tabel DAT\_OP\_BUMI, relasi tabel yang terbentuk sebetulnya sudah ada pada saat pembentukan tabel di awal. Kunci tamu yang terbentuk tersebut adalah sebagai berikut :
+	
+		\begin{itemize}
+			\item \textit{Constraint} SYS\_C0014244 adalah kunci tamu untuk tabel REF\_KECAAMTAN,  berikut adalah kodenya :
+			
+\begin{lstlisting}
+FOREIGN KEY (KD_PROPINSI, KD_DATI2, KD_KECAMATAN) 
+  REFERENCES REF_KECAMATAN (KD_PROPINSI, KD_DATI2, KD_KECAMATAN)
+\end{lstlisting}			
+			
+			\item \textit{Constraint} SYS\_C0014245 adalah kunci tamu untuk tabel REF\_KELURAHAN, berikut adalah kodenya :
+			
+\begin{lstlisting}
+FOREIGN KEY (KD_PROPINSI, KD_DATI2, KD_KECAMATAN, KD_KELURAHAN)
+  REFERENCES REF_KELURAHAN (KD_PROPINSI, KD_DATI2, KD_KECAMATAN, KD_KELURAHAN)
+\end{lstlisting}
+
+		\end{itemize}
+	
 	\item Tabel PEMBAYARAN\_SPPT
 	\item Tabel REF\_KECAMATAN
 	\item Tabel REF\_KELURAHAN
