@@ -1,7 +1,8 @@
  \documentclass[pdftex,12pt, oneside]{article}
 
 %\usepackage[paperwidth=8.5in, paperheight=13in]{geometry} % Folio
-\usepackage[paperwidth=8.27in, paperheight=11.69in]{geometry} % A4
+\usepackage[paperwidth=8.27in, paperheight=11.69in, top=2.5cm, 
+    left=4cm, right=3cm, bottom=2.5cm]{geometry} % A4
 
 \usepackage{makeidx}         % allows index generation
 \usepackage{graphicx}        % standard LaTeX graphics tool
@@ -383,7 +384,39 @@ FOREIGN KEY (KD_PROPINSI, KD_DATI2, KD_KECAMATAN, KD_KELURAHAN)
 		\end{itemize}
 	
 	\item Tabel PEMBAYARAN\_SPPT
+	
+	Pada tabel PEMBAYARAN\_SPPT, relasi tabel sudah terbentuk saat pembuatan tabel terjadi sebagai basis data pembentuk aplikasi SISMIOP. Kode dari kunci tamu yang terbentuk adalah sebagai berikut :
+	
+		\begin{itemize}
+			\item \textit{Constraint} SYS\_C0017781 adalah kunci tamu untuk tabel REF\_KECAMATAN dengan kode sebagai berikut :
+			
+\begin{lstlisting}
+FOREIGN KEY (KD_PROPINSI, KD_DATI2, KD_KECAMATAN) 
+  REFERENCES REF_KECAMATAN (KD_PROPINSI, KD_DATI2, KD_KECAMATAN)
+\end{lstlisting}
+			
+			\item \textit{Constraint} SYS\_C0017782 adalah kunci tamu untuk tabel REF\_KELURAHAN dengan kode sebagai berikut :
+			
+\begin{lstlisting}
+FOREIGN KEY (KD_PROPINSI, KD_DATI2, KD_KECAMATAN, KD_KELURAHAN)
+  REFERENCES REF_KELURAHAN (KD_PROPINSI, KD_DATI2, KD_KECAMATAN, KD_KELURAHAN)
+\end{lstlisting}			
+			
+			\item \textit{Constraint} SYS\_C0017783 adalah kunci tamu untuk tabel SPPT dengan kode sebagai berikut :
+			
+\begin{lstlisting}
+FOREIGN KEY (KD_PROPINSI, KD_DATI2, KD_KECAMATAN, KD_KELURAHAN, KD_BLOK, NO_URUT,
+    KD_JNS_OP, THN_PAJAK_SPPT)
+  REFERENCES SPPT (KD_PROPINSI, KD_DATI2, KD_KECAMATAN, KD_KELURAHAN, KD_BLOK, NO_URUT,
+      KD_JNS_OP, THN_PAJAK_SPPT)
+\end{lstlisting}
+			
+		\end{itemize}
+	
 	\item Tabel REF\_KECAMATAN
+	
+		Pada tabel REF\_KECAMATAN ini tidak memiliki kunci tamu	
+	
 	\item Tabel REF\_KELURAHAN
 	\item Tabel LOG\_TRX\_PEMBAYARAN
 	\item Tabel LOG\_REVERSAL
