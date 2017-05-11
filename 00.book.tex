@@ -415,22 +415,90 @@ FOREIGN KEY (KD_PROPINSI, KD_DATI2, KD_KECAMATAN, KD_KELURAHAN, KD_BLOK, NO_URUT
 	
 	\item Tabel REF\_KECAMATAN
 	
-		Pada tabel REF\_KECAMATAN ini tidak memiliki kunci tamu	
+		Pada tabel REF\_KECAMATAN ini tidak memiliki kunci tamu	sehingga tidak ada kode untuk pembuatan \textit{constraint} pada tabel ini.
 	
 	\item Tabel REF\_KELURAHAN
 	
-		
+	Tabel REF\_KELURAHAN memiliki sebuah kunci tamu yang dideklarasikan dalam \textit{constraint} yang sudah dibentuk pada saat pembuatan tabel. \textit{Constraint} tersebut diberi nama SYS\_C0014372 dengan kode sebagai berikut :
+	
+\begin{lstlisting}
+FOREIGN KEY (KD_PROPINSI, KD_DATI2, KD_KECAMATAN)
+  REFERENCES REF_KECAMATAN (KD_PROPINSI, KD_DATI2, KD_KECAMATAN)
+\end{lstlisting}
 	
 	\item Tabel LOG\_TRX\_PEMBAYARAN
+	
+	Tabel LOG\_TRX\_PEMBAYARAN tidak memiliki kunci tamu karena tabel ini hanya mencatat kejadian pada saat terjadi transaksi pembayaran. Isinya terbentuk dari kode aplikasi yang melakukan perintah-perintah untuk mencatatkan pembayaran SPPT-PBB.
+	
 	\item Tabel LOG\_REVERSAL
+	
+	Tabel LOG\_REVERSAL tidak memiliki kunci tamu karena tabel ini hanya digunakan untuk mencatat kejadian pada saat terjadi \textit{reversal} pembayaran saat terjadi kesalahan pencatatan pembayaran sebelumnya.
+	
 	\end{itemize}
 
 	
 	\item Pembuatan Indeks
 	
+	Pembuatan indeks untuk mempercepat pencarian data pada basis data untuk aplikasi \textit{web services} PBB-P2 dibagi ke dalam masing-masing tabel adalah sebagai berikut :
 	
+	\begin{itemize}
+	  \item Tabel SPPT. Pada tabel SPPT ini, indeks terbentuk pada saat pembuatan tabel dengan kode berikut :
+	  
+\begin{lstlisting}
+CONSTRAINT "PK_E6" PRIMARY KEY ("KD_PROPINSI", "KD_DATI2", "KD_KECAMATAN", "KD_KELURAHAN", "KD_BLOK", "NO_URUT", "KD_JNS_OP", "THN_PAJAK_SPPT")
+\end{lstlisting}
+	  
+	  \item Tabel PEMBAYARAN\_SPPT. Indeks pada tabel PEMBAYARAN\_SPPT, terbentuk pada saat pembuatan tabel dengan kode berikut :
+	  
+\begin{lstlisting}
+CONSTRAINT "PK_G1" PRIMARY KEY ("KD_PROPINSI", "KD_DATI2", "KD_KECAMATAN", "KD_KELURAHAN", "KD_BLOK", "NO_URUT", "KD_JNS_OP", "THN_PAJAK_SPPT", "PEMBAYARAN_SPPT_KE", "KD_KANWIL_BANK", "KD_KPPBB_BANK", "KD_BANK_TUNGGAL", "KD_BANK_PERSEPSI", "KD_TP")
+\end{lstlisting}
+
+	  \item Tabel DAT\_OP\_BUMI. Indeks pada tabel DAT\_OP\_BUMI terbentuk pada saat pembuatan tabel dengan kode sebagai berikut :
+	  
+\begin{lstlisting}
+CONSTRAINT "PK_D6" PRIMARY KEY ("KD_PROPINSI", "KD_DATI2", "KD_KECAMATAN", "KD_KELURAHAN", "KD_BLOK", "NO_URUT", "KD_JNS_OP", "NO_BUMI")
+\end{lstlisting}
+	  
+	  \item Tabel REF\_KECAMATAN. Indeks pada tabel REF\_KECAMATAN terbentuk pada saat pembuatan tabel dengan kode sebagai berikut :
+	  
+\begin{lstlisting}
+CONSTRAINT "PK_A3" PRIMARY KEY ("KD_PROPINSI", "KD_DATI2", "KD_KECAMATAN")
+\end{lstlisting}
+	  
+	  \item Tabel REF\_KELURAHAN. Indeks pada tabel REF\_KELURAHAN terbentuk pada saat pembuatan tabel dengan kode sebagai berikut :
+	  
+\begin{lstlisting}
+CONSTRAINT "PK_A4" PRIMARY KEY ("KD_PROPINSI", "KD_DATI2", "KD_KECAMATAN", "KD_KELURAHAN")
+\end{lstlisting}
+	  
+	  \item Tabel LOG\_TRX\_PEMBAYARAN. Indeks pada tabel LOG\_TRX\_PEMBAYARAN terbentuk pada saat pembuatan tabel dengan kode berikut :
+	  
+\begin{lstlisting}
+CONSTRAINT "LOG_TRX_PEMBAYARAN_PK" PRIMARY KEY ("NOP", "THN", "NTPD")
+\end{lstlisting}
+	  
+	  \item Tabel LOG\_REVERSAL. Indeks pada tabel LOG\_REVERSAL terbentuk pada saat pembuatan tabel dengan kode sebagai berikut :
+	  
+\begin{lstlisting}
+CONSTRAINT "LOG_REVERSAL_PK" PRIMARY KEY ("NOP", "THN", "NTPD")
+\end{lstlisting}
+	\end{itemize}
 	
 	\item Pembuatan \textit{Trigger}
+	
+	\textit{Trigger} pada basis data \textit{web services} PBB-P2 untuk setiap tabel adalah sebagai berikut :
+	
+	\begin{itemize}
+	\item Tabel SPPT
+	\item Tabel PEMBAYARAN\_SPPT
+	\item Tabel DAT\_OP\_BUMI
+	\item Tabel REF\_KECAMATAN
+	\item Tabel REF\_KELURAHAN
+	\item Tabel LOG\_TRX\_PEMBAYARAN
+	\item Tabel LOG\_REVERSAL
+	\end{itemize}
+	
 	\item Pembuatan \textit{Store Procedure}
 \end{enumerate}
 
